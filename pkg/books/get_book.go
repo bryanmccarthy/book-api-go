@@ -1,21 +1,21 @@
 package books
 
 import (
-    "net/http"
+	"net/http"
 
-    "github.com/gin-gonic/gin"
-    "example.com/book-api-go/pkg/common/models"
+	"example.com/book-api-go/pkg/common/models"
+	"github.com/gin-gonic/gin"
 )
 
 func (h handler) GetBook(c *gin.Context) {
-    id := c.Param("id")
+	id := c.Param("id")
 
-    var book models.Book
+	var book models.Book
 
-    if result := h.DB.First(&book, id); result.Error != nil {
-        c.AbortWithError(http.StatusNotFound, result.Error)
-        return
-    }
+	if result := h.DB.First(&book, id); result.Error != nil {
+		c.AbortWithError(http.StatusNotFound, result.Error)
+		return
+	}
 
-    c.JSON(http.StatusOK, &book)
+	c.JSON(http.StatusOK, &book)
 }
